@@ -41,11 +41,17 @@ namespace CIDM3312_Final.Pages.ColoringBooks
         {
             int pageSize = 10;
 
+
             var booksQuery = _context.ColoringBooks
                 .Include(c => c.Artist)
                 .AsQueryable();
 
-            if (!ShowInactive)
+            // If ShowInactive is checked, show only inactive books. Otherwise, show only active books.
+            if (ShowInactive)
+            {
+                booksQuery = booksQuery.Where(c => !c.IsActive);
+            }
+            else
             {
                 booksQuery = booksQuery.Where(c => c.IsActive);
             }

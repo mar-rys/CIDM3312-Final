@@ -9,27 +9,13 @@
 <h1>Orders</h1>
 
 <form method="get" class="mb-3">
-    <div class="row g-2">
+    <div class="row g-2 align-items-end">
         <div class="col-md-5">
-            <input type="text"
-                   name="SearchString"
-                   value="@Model.SearchString"
-                   class="form-control"
-                   placeholder="Search by customer or coloring book..." />
+            <div class="input-group">
+                <span class="input-group-text"><i class="bi bi-search"></i></span>
+                <input class="form-control me-2" type="search" name="SearchString" value="@Model.SearchString" placeholder="Search by customer or coloring book..." aria-label="Search">
+            </div>
         </div>
-
-        <div class="col-md-3">
-            <select name="StatusFilter" class="form-control">
-                <option value="">All Statuses</option>
-                @foreach (var status in Enum.GetValues(typeof(OrderStatus)))
-                {
-                    <option value="@status" selected="@(Model.StatusFilter?.ToString() == status.ToString())">
-                        @status
-                    </option>
-                }
-            </select>
-        </div>
-
         <div class="col-md-3">
             <select name="SortOrder" class="form-control">
                 <option value="">Date Newest First</option>
@@ -44,9 +30,19 @@
                 <option value="book_desc" selected="@(Model.SortOrder == "book_desc")">Book Z-A</option>
             </select>
         </div>
-
+        <div class="col-md-3">
+            <select name="StatusFilter" class="form-control">
+                <option value="">All</option>
+                @foreach (var status in Enum.GetValues(typeof(OrderStatus)))
+                {
+                    <option value="@status" selected="@(Model.StatusFilter?.ToString() == status.ToString())">
+                        @status
+                    </option>
+                }
+            </select>
+        </div>
         <div class="col-md-1">
-            <button type="submit" class="btn btn-primary w-100">Go</button>
+            <button type="submit" class="btn btn-outline-success w-100">Search</button>
         </div>
     </div>
 </form>

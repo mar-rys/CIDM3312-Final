@@ -11,15 +11,14 @@
     <input type="hidden" name="PageIndex" value="1" />
     <input type="hidden" name="ArtistId" value="@Model.ArtistId" />
 
-    <div class="row g-2">
-        <div class="col-md-6">
-            <input type="text"
-                   name="SearchString"
-                   value="@Model.SearchString"
-                   class="form-control"
-                   placeholder="Search by title, theme, or artist..." />
+    <div class="row g-2 align-items-end">
+        <div class="col-md-7">
+            <div class="input-group">
+                <span class="input-group-text"><i class="bi bi-search"></i></span>
+                <input class="form-control me-2" type="search" name="SearchString" value="@Model.SearchString" placeholder="Search by title, theme, or artist..." aria-label="Search">
+                <button class="btn btn-outline-success" type="submit">Search</button>
+            </div>
         </div>
-
         <div class="col-md-3">
             <select name="SortOrder" class="form-control">
                 <option value="">Sort by Title A-Z</option>
@@ -32,27 +31,16 @@
                 <option value="artist_desc">Artist Z-A</option>
             </select>
         </div>
-
         <div class="col-md-2 form-check mt-2">
-            <input class="form-check-input"
-                   type="checkbox"
-                   name="ShowInactive"
-                   value="true"
-                   @(Model.ShowInactive ? "checked" : "") />
-
-            <label class="form-check-label">
-                Show inactive
-            </label>
-        </div>
-
-        <div class="col-md-1">
-            <button type="submit" class="btn btn-primary w-100">Go</button>
+            <input class="form-check-input" type="checkbox" name="ShowInactive" value="true" @(Model.ShowInactive ? "checked" : "") onchange="this.form.submit()" />
+            <label class="form-check-label">Show inactive</label>
         </div>
     </div>
 </form>
 
 <p>
     <a asp-page="Create" class="btn btn-success">Create New</a>
+    <a asp-page="./Index" class="btn btn-secondary">Clear</a>
 </p>
 
 @if (!Model.ColoringBook.Any())

@@ -51,7 +51,8 @@ namespace CIDM3312_Final.Pages.ColoringBooks
             if (coloringbook != null)
             {
                 ColoringBook = coloringbook;
-                _context.ColoringBooks.Remove(ColoringBook);
+                ColoringBook.IsActive = false;
+                _context.ColoringBooks.Update(ColoringBook);
                 await _context.SaveChangesAsync();
             }
 
