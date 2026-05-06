@@ -22,7 +22,7 @@ Relationship:
 ERD and Business Rules
 1. A coloring book can’t be deleted if it’s linked to an existing order; it must be marked with an IsActive Boolean set to hide it from new customers.
 2. An order must have a quantity of at least 1 and an order date that is not set in the future. 
-3 A single order can’t exceed a quantity of 30 units, so that it won’t be a fraudulent order. 
+3. A single order can’t exceed a quantity of 30 units, so that it won’t be a fraudulent order. 
 4. If a customer is deleted, all their orders must be deleted or anonymized. 
 5. An order status can only be moved in one direction: pending, printing, shipped, or delivered. 
 6. The search bar must allow for partial matches.
