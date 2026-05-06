@@ -23,11 +23,9 @@ namespace ColorGoGo.Models
         // Business Rule: Hide instead of delete
         public bool IsActive { get; set; } = true;
 
-        // Foreign Key
         [Required]
         public int ArtistID { get; set; }
 
-        // Navigation Properties
         public Artist ? Artist { get; set; }
         public ICollection<Order> ? Orders { get; set; }
     }

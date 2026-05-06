@@ -46,7 +46,6 @@ namespace CIDM3312_Final.Pages.ColoringBooks
                 .Include(c => c.Artist)
                 .AsQueryable();
 
-            // If ShowInactive is checked, show only inactive books. Otherwise, show only active books.
             if (ShowInactive)
             {
                 booksQuery = booksQuery.Where(c => !c.IsActive);
