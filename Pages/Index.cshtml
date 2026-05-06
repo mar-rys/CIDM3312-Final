@@ -5,9 +5,10 @@
     ViewData["Title"] = "Home page";
 }
 
-<div class="text-center">
-    <h1 class="display-4">Welcome</h1>
-    <h2>Meet our Artists</h2>
+<div class="hero-section p-5 mb-4 bg-light rounded-3 shadow-sm text-center">
+    <h1 class="display-3 fw-bold mb-3">Welcome to <span class="text-primary">ColorGoGo</span></h1>
+    <p class="lead mb-4">Meet our Artists below or click here to browse the coloring books!</p>
+    <a asp-page="/ColoringBooks/Index" class="btn btn-lg btn-primary px-4 me-2">Browse Coloring Books</a>
 </div>
 
 @foreach (var artist in Model.Artists)
@@ -20,7 +21,7 @@
         </div>
 
         <div class="col-10">
-            <h3>@artist.ArtistName</h3>
+            <h4>@artist.ArtistName</h4>
             <p class="text-muted mb-1">Email: <a href="mailto:@artist.Email">@artist.Email</a></p>
 
             <p>

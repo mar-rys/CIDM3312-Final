@@ -20,7 +20,6 @@ namespace ColorGoGo.Models
         [StringLength(100)]
         public string ? Theme { get; set; }
 
-        // Business Rule: Hide instead of delete
         public bool IsActive { get; set; } = true;
 
         [Required]

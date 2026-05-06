@@ -18,7 +18,6 @@ namespace ColorGoGo.Models
         [StringLength(500)]
         public string ? Bio { get; set; }
 
-        // Navigation Property
         public ICollection<ColoringBook> ? ColoringBooks { get; set; }
     }
 }

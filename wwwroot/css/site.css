@@ -1,3 +1,41 @@
+/* Homepage Hero Section */
+.hero-section {
+  background: linear-gradient(90deg, #f8fafc 60%, #e3f0ff 100%);
+  border-radius: 1.5rem;
+  box-shadow: 0 4px 24px rgba(0,0,0,0.07);
+  margin-top: 2rem;
+}
+
+/* Artist Card Styles */
+.artist-card {
+  transition: transform 0.2s, box-shadow 0.2s;
+  border-radius: 1rem;
+  border: none;
+}
+.artist-card:hover {
+  transform: translateY(-6px) scale(1.03);
+  box-shadow: 0 8px 32px rgba(0,0,0,0.12);
+}
+.artist-img {
+  border: 4px solid #fff;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+}
+.badge.bg-primary {
+  font-size: 1rem;
+  padding: 0.5em 1em;
+  border-radius: 1em;
+}
+.card-title {
+  font-weight: 600;
+}
+.list-group-item {
+  background: #f9f9f9;
+  border: none;
+  border-bottom: 1px solid #ececec;
+}
+.list-group-item:last-child {
+  border-bottom: none;
+}
 html {
   font-size: 14px;
 }

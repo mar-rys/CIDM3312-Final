@@ -16,7 +16,6 @@ public ColorGoGoContext(DbContextOptions<ColorGoGoContext> options)
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
-        //(business rule #4)
         modelBuilder.Entity<Order>()
             .HasOne(o => o.Customer)
             .WithMany(c => c.Orders)

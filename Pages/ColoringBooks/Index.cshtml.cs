@@ -45,7 +45,7 @@ namespace CIDM3312_Final.Pages.ColoringBooks
             var booksQuery = _context.ColoringBooks
                 .Include(c => c.Artist)
                 .AsQueryable();
-
+                
             if (ShowInactive)
             {
                 booksQuery = booksQuery.Where(c => !c.IsActive);
