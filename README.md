@@ -1,7 +1,9 @@
-Final Project for CIDM 3312
+**Final Project for CIDM 3312**
 
 Web Application: ColorGoGo
+
 Description and Purpose: ColorGoGo is a web application designed to track orders for a small business that sells coloring books. The application tracks which artists drew coloring books, associates them with the correct customers, and updates the status of orders. The purpose of this application is to associate artists with their coloring book, track inventory, and fulfill customers’ orders. 
+
 Data: 
 Entity: Artist
 Attributes: ArtistID (PK), ArtistName, Email, ColoringBooks, Bio
@@ -11,6 +13,7 @@ Entity: Customer
 Attribute: CustomerID (PK), CustomerName, Address
 Entity: Order
 Attribute: OrderID (PK), OrderDate, Status, Quantity, ColorBookID, CustomerID (FK)
+
 Relationship: 
 1. Artist to ColoringBook: one-to-many 
 	One artist can have many coloring books associated with them, but each book has to have at least one artist.  
