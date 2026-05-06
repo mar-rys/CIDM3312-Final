@@ -1,0 +1,61 @@
+@page "{id:int}"
+@model CIDM3312_Final.Pages.Customers.DetailsModel
+
+@{
+    ViewData["Title"] = "Customer Details";
+}
+
+<h1>Customer Details</h1>
+
+<div class="card mb-4">
+    <div class="card-body">
+        <h3>@Model.Customer.CustomerName</h3>
+        <p><strong>Address:</strong> @Model.Customer.Address</p>
+    </div>
+</div>
+
+<h4>Orders for this Customer</h4>
+
+<p>
+    <a asp-page="/Orders/Create" class="btn btn-primary">Create New Order</a>
+</p>
+
+@if (Model.Customer.Orders.Any())
+{
+    <table class="table table-striped table-hover">
+        <thead>
+            <tr>
+                <th>Order Date</th>
+                <th>Status</th>
+                <th>Quantity</th>
+                <th>Coloring Book</th>
+                <th></th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var order in Model.Customer.Orders)
+            {
+                <tr>
+                    <td>@order.OrderDate.ToShortDateString()</td>
+                    <td>@order.Status</td>
+                    <td>@order.Quantity</td>
+                    <td>@(order.ColoringBook?.BookTitle ?? "N/A")</td>
+                    <td>
+                        <a asp-page="/Orders/Details" asp-route-id="@order.OrderID">Details</a> |
+                        <a asp-page="/Orders/Edit" asp-route-id="@order.OrderID">Edit</a> |
+                        <a asp-page="/Orders/Delete" asp-route-id="@order.OrderID">Delete</a>
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+}
+else
+{
+    <div class="alert alert-info">
+        This customer has not placed any orders yet.
+    </div>
+}
+
+<a asp-page="Edit" asp-route-id="@Model.Customer.CustomerID" class="btn btn-primary">Edit Customer</a>
+<a asp-page="Index" class="btn btn-secondary">Back to Customers</a>

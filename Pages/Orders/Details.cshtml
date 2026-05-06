@@ -1,0 +1,17 @@
+@page 
+@model CIDM3312_Final.Pages.Orders.DetailsModel
+
+<h1>Order Details</h1>
+
+<div class="card">
+    <div class="card-body">
+        <p><strong>Order Date:</strong> @Model.Order.OrderDate.ToShortDateString()</p>
+        <p><strong>Status:</strong> @Model.Order.Status</p>
+        <p><strong>Quantity:</strong> @Model.Order.Quantity</p>
+        <p><strong>Customer:</strong> @Model.Order.Customer?.CustomerName</p>
+        <p><strong>Coloring Book:</strong> @Model.Order.ColoringBook?.BookTitle</p>
+    </div>
+</div>
+
+<a asp-page="Edit" asp-route-id="@Model.Order.OrderID" class="btn btn-primary mt-3">Edit</a>
+<a asp-page="Index" class="btn btn-secondary mt-3">Back</a>

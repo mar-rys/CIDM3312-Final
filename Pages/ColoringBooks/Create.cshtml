@@ -1,0 +1,56 @@
+@page
+@model CIDM3312_Final.Pages.ColoringBooks.CreateModel
+
+        @{
+        ViewData["Title"] = "Create";
+        }
+        
+        <h1>Create</h1>
+        
+    <h4>ColoringBook</h4>
+    <hr />
+    <div class="row">
+    <div class="col-md-4">
+    <form method="post">
+    <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <div class="form-group">
+                <span class="text-danger">*</span>
+                <label asp-for="ColoringBook.BookTitle" class="control-label"></label>
+                <input asp-for="ColoringBook.BookTitle" class="form-control" aria-required="true"/>
+                <span asp-validation-for="ColoringBook.BookTitle" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <span class="text-danger">*</span>
+                <label asp-for="ColoringBook.Price" class="control-label"></label>
+                <input asp-for="ColoringBook.Price" class="form-control" aria-required="true"/>
+                <span asp-validation-for="ColoringBook.Price" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="ColoringBook.Theme" class="control-label"></label>
+                <input asp-for="ColoringBook.Theme" class="form-control" />
+                <span asp-validation-for="ColoringBook.Theme" class="text-danger"></span>
+            </div>
+            <div class="form-group form-check">
+                <label class="form-check-label">
+                    <input class="form-check-input" asp-for="ColoringBook.IsActive" /> @Html.DisplayNameFor(model => model.ColoringBook.IsActive)
+                </label>
+            </div>
+            <div class="form-group">
+                <span class="text-danger">*</span>
+                <label asp-for="ColoringBook.ArtistID" class="control-label"></label>
+                <select asp-for="ColoringBook.ArtistID" class ="form-control" asp-items="ViewBag.ArtistID" aria-required="true"></select>
+            </div>
+            <div class="form-group">
+                <input type="submit" value="Create" class="btn btn-primary" />
+            </div>
+        </form>
+    </div>
+</div>
+
+<div>
+    <a asp-page="Index">Back to List</a>
+</div>
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}

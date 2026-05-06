@@ -1,0 +1,172 @@
+@page
+@model CIDM3312_Final.Pages.ColoringBooks.IndexModel
+
+@{
+    ViewData["Title"] = "Coloring Books";
+}
+
+<h1>Coloring Books</h1>
+
+<form method="get" class="mb-3">
+    <input type="hidden" name="PageIndex" value="1" />
+    <input type="hidden" name="ArtistId" value="@Model.ArtistId" />
+
+    <div class="row g-2">
+        <div class="col-md-6">
+            <input type="text"
+                   name="SearchString"
+                   value="@Model.SearchString"
+                   class="form-control"
+                   placeholder="Search by title, theme, or artist..." />
+        </div>
+
+        <div class="col-md-3">
+            <select name="SortOrder" class="form-control">
+                <option value="">Sort by Title A-Z</option>
+                <option value="title_desc">Title Z-A</option>
+                <option value="price_asc">Price Low-High</option>
+                <option value="price_desc">Price High-Low</option>
+                <option value="theme_asc">Theme A-Z</option>
+                <option value="theme_desc">Theme Z-A</option>
+                <option value="artist_asc">Artist A-Z</option>
+                <option value="artist_desc">Artist Z-A</option>
+            </select>
+        </div>
+
+        <div class="col-md-2 form-check mt-2">
+            <input class="form-check-input"
+                   type="checkbox"
+                   name="ShowInactive"
+                   value="true"
+                   @(Model.ShowInactive ? "checked" : "") />
+
+            <label class="form-check-label">
+                Show inactive
+            </label>
+        </div>
+
+        <div class="col-md-1">
+            <button type="submit" class="btn btn-primary w-100">Go</button>
+        </div>
+    </div>
+</form>
+
+<p>
+    <a asp-page="Create" class="btn btn-success">Create New</a>
+</p>
+
+@if (!Model.ColoringBook.Any())
+{
+    <div class="alert alert-warning">
+        No coloring books found.
+    </div>
+}
+else
+{
+    <table class="table table-striped table-hover">
+        <thead>
+            <tr>
+                <th>
+                    <a asp-page="./Index"
+                       asp-route-SearchString="@Model.SearchString"
+                       asp-route-ArtistId="@Model.ArtistId"
+                       asp-route-ShowInactive="@Model.ShowInactive"
+                       asp-route-SortOrder="@(Model.SortOrder == "title_desc" ? "" : "title_desc")">
+                        Title
+                    </a>
+                </th>
+
+                <th>
+                    <a asp-page="./Index"
+                       asp-route-SearchString="@Model.SearchString"
+                       asp-route-ArtistId="@Model.ArtistId"
+                       asp-route-ShowInactive="@Model.ShowInactive"
+                       asp-route-SortOrder="@(Model.SortOrder == "price_asc" ? "price_desc" : "price_asc")">
+                        Price
+                    </a>
+                </th>
+
+                <th>
+                    <a asp-page="./Index"
+                       asp-route-SearchString="@Model.SearchString"
+                       asp-route-ArtistId="@Model.ArtistId"
+                       asp-route-ShowInactive="@Model.ShowInactive"
+                       asp-route-SortOrder="@(Model.SortOrder == "theme_asc" ? "theme_desc" : "theme_asc")">
+                        Theme
+                    </a>
+                </th>
+
+                <th>
+                    <a asp-page="./Index"
+                       asp-route-SearchString="@Model.SearchString"
+                       asp-route-ArtistId="@Model.ArtistId"
+                       asp-route-ShowInactive="@Model.ShowInactive"
+                       asp-route-SortOrder="@(Model.SortOrder == "artist_asc" ? "artist_desc" : "artist_asc")">
+                        Artist
+                    </a>
+                </th>
+
+                <th>Active</th>
+                <th></th>
+            </tr>
+        </thead>
+
+        <tbody>
+            @foreach (var item in Model.ColoringBook)
+            {
+                <tr>
+    <td>@item.BookTitle</td>
+    <td>@item.Price.ToString("C")</td>
+    <td>@item.Theme</td>
+
+    <td>
+        @item.Artist?.ArtistName
+    </td>
+
+    <td>@item.IsActive</td>
+
+    <td>
+        <a asp-page="./Edit" asp-route-id="@item.ColoringBookID">Edit</a> |
+        <a asp-page="./Details" asp-route-id="@item.ColoringBookID">Details</a> |
+        <a asp-page="./Delete" asp-route-id="@item.ColoringBookID">Delete</a>
+    </td>
+</tr>
+            }
+        </tbody>
+    </table>
+}
+<nav aria-label="Coloring book page navigation">
+    <ul class="pagination">
+
+        <li class="page-item @(Model.HasPreviousPage ? "" : "disabled")">
+            <a class="page-link"
+               asp-page="./Index"
+               asp-route-PageIndex="@(Model.PageIndex - 1)"
+               asp-route-SearchString="@Model.SearchString"
+               asp-route-SortOrder="@Model.SortOrder"
+               asp-route-ArtistId="@Model.ArtistId"
+               asp-route-ShowInactive="@Model.ShowInactive">
+                Previous
+            </a>
+        </li>
+
+        <li class="page-item disabled">
+            <span class="page-link">
+                Page @Model.PageIndex of @(Model.TotalPages == 0 ? 1 : Model.TotalPages)
+            </span>
+        </li>
+
+        <li class="page-item @(Model.HasNextPage ? "" : "disabled")">
+            <a class="page-link"
+               asp-page="./Index"
+               asp-route-PageIndex="@(Model.PageIndex + 1)"
+               asp-route-SearchString="@Model.SearchString"
+               asp-route-SortOrder="@Model.SortOrder"
+               asp-route-ArtistId="@Model.ArtistId"
+               asp-route-ShowInactive="@Model.ShowInactive">
+                Next
+            </a>
+        </li>
+
+    </ul>
+</nav>

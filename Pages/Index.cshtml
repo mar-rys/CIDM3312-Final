@@ -1,0 +1,64 @@
+﻿@page
+@model ColorGoGo.Pages.IndexModel
+
+@{
+    ViewData["Title"] = "Home page";
+}
+
+<div class="text-center">
+    <h1 class="display-4">Welcome</h1>
+    <h2>Meet our Artists</h2>
+</div>
+
+@foreach (var artist in Model.Artists)
+{
+    <div class="row">
+        <div class="col-2">
+           <img src="~/images/artists/artist@(artist.ArtistID).png"
+     class="img-fluid"
+     alt="@artist.ArtistName">
+        </div>
+
+        <div class="col-10">
+            <h3>@artist.ArtistName</h3>
+            <p class="text-muted mb-1">Email: <a href="mailto:@artist.Email">@artist.Email</a></p>
+
+            <p>
+                <span>@(artist.ColoringBooks?.Count ?? 0) coloring books</span>
+            </p>
+
+            <p class="fs-5">@artist.Bio</p>
+
+            <button class="btn btn-primary"
+                    type="button"
+                    data-bs-toggle="collapse"
+                    data-bs-target="@("#books" + artist.ArtistID)">
+                Show Coloring Books
+            </button>
+
+            <div class="collapse" id="@("books" + artist.ArtistID)">
+                @if (artist.ColoringBooks != null)
+                {
+                    foreach (var book in artist.ColoringBooks)
+                    {
+                        <p class="p-2">
+                            <strong>@book.BookTitle</strong><br />
+                            Theme: @book.Theme<br />
+                            Price: @book.Price.ToString("C")<br />
+
+                            <a asp-page="/ColoringBooks/Details"
+                               asp-route-id="@book.ColoringBookID"
+                               class="btn btn-sm btn-outline-primary mt-2">
+                                View Details
+                            </a>
+                        </p>
+
+                        <hr class="my-0">
+                    }
+                }
+            </div>
+        </div>
+    </div>
+
+    <hr class="my-4">
+}

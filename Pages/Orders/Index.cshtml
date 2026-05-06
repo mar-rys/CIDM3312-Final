@@ -1,0 +1,132 @@
+@page
+@model CIDM3312_Final.Pages.Orders.IndexModel
+@using ColorGoGo.Models
+
+@{
+    ViewData["Title"] = "Orders";
+}
+
+<h1>Orders</h1>
+
+<form method="get" class="mb-3">
+    <div class="row g-2">
+        <div class="col-md-5">
+            <input type="text"
+                   name="SearchString"
+                   value="@Model.SearchString"
+                   class="form-control"
+                   placeholder="Search by customer or coloring book..." />
+        </div>
+
+        <div class="col-md-3">
+            <select name="StatusFilter" class="form-control">
+                <option value="">All Statuses</option>
+                @foreach (var status in Enum.GetValues(typeof(OrderStatus)))
+                {
+                    <option value="@status" selected="@(Model.StatusFilter?.ToString() == status.ToString())">
+                        @status
+                    </option>
+                }
+            </select>
+        </div>
+
+        <div class="col-md-3">
+            <select name="SortOrder" class="form-control">
+                <option value="">Date Newest First</option>
+                <option value="date_asc" selected="@(Model.SortOrder == "date_asc")">Date Oldest First</option>
+                <option value="quantity_asc" selected="@(Model.SortOrder == "quantity_asc")">Quantity Low-High</option>
+                <option value="quantity_desc" selected="@(Model.SortOrder == "quantity_desc")">Quantity High-Low</option>
+                <option value="status_asc" selected="@(Model.SortOrder == "status_asc")">Status A-Z</option>
+                <option value="status_desc" selected="@(Model.SortOrder == "status_desc")">Status Z-A</option>
+                <option value="customer_asc" selected="@(Model.SortOrder == "customer_asc")">Customer A-Z</option>
+                <option value="customer_desc" selected="@(Model.SortOrder == "customer_desc")">Customer Z-A</option>
+                <option value="book_asc" selected="@(Model.SortOrder == "book_asc")">Book A-Z</option>
+                <option value="book_desc" selected="@(Model.SortOrder == "book_desc")">Book Z-A</option>
+            </select>
+        </div>
+
+        <div class="col-md-1">
+            <button type="submit" class="btn btn-primary w-100">Go</button>
+        </div>
+    </div>
+</form>
+
+<p>
+    <a asp-page="Create" class="btn btn-success">Create New Order</a>
+    <a asp-page="./Index" class="btn btn-secondary">Clear</a>
+</p>
+
+@if (!Model.Orders.Any())
+{
+    <div class="alert alert-warning">
+        No orders found.
+    </div>
+}
+else
+{
+    <table class="table table-striped table-hover">
+        <thead>
+            <tr>
+                <th>
+                    <a asp-page="./Index"
+                       asp-route-SearchString="@Model.SearchString"
+                       asp-route-StatusFilter="@Model.StatusFilter"
+                       asp-route-SortOrder="@(Model.SortOrder == "date_asc" ? "date_desc" : "date_asc")">
+                        Order Date
+                    </a>
+                </th>
+                <th>
+                    <a asp-page="./Index"
+                       asp-route-SearchString="@Model.SearchString"
+                       asp-route-StatusFilter="@Model.StatusFilter"
+                       asp-route-SortOrder="@(Model.SortOrder == "status_asc" ? "status_desc" : "status_asc")">
+                        Status
+                    </a>
+                </th>
+                <th>
+                    <a asp-page="./Index"
+                       asp-route-SearchString="@Model.SearchString"
+                       asp-route-StatusFilter="@Model.StatusFilter"
+                       asp-route-SortOrder="@(Model.SortOrder == "quantity_asc" ? "quantity_desc" : "quantity_asc")">
+                        Quantity
+                    </a>
+                </th>
+                <th>
+                    <a asp-page="./Index"
+                       asp-route-SearchString="@Model.SearchString"
+                       asp-route-StatusFilter="@Model.StatusFilter"
+                       asp-route-SortOrder="@(Model.SortOrder == "customer_asc" ? "customer_desc" : "customer_asc")">
+                        Customer
+                    </a>
+                </th>
+                <th>
+                    <a asp-page="./Index"
+                       asp-route-SearchString="@Model.SearchString"
+                       asp-route-StatusFilter="@Model.StatusFilter"
+                       asp-route-SortOrder="@(Model.SortOrder == "book_asc" ? "book_desc" : "book_asc")">
+                        Coloring Book
+                    </a>
+                </th>
+                <th></th>
+            </tr>
+        </thead>
+
+        <tbody>
+            @foreach (var order in Model.Orders)
+            {
+                <tr>
+                    <td>@order.OrderDate.ToShortDateString()</td>
+                    <td>@order.Status</td>
+                    <td>@order.Quantity</td>
+                    <td>@order.Customer?.CustomerName</td>
+                    <td>@order.ColoringBook?.BookTitle</td>
+                    <td>
+                        <a asp-page="Edit" asp-route-id="@order.OrderID">Edit</a> |
+                        <a asp-page="Details" asp-route-id="@order.OrderID">Details</a> |
+                        <a asp-page="Delete" asp-route-id="@order.OrderID">Delete</a>
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+}
